@@ -61,7 +61,12 @@ public class EmployeeRestController {
     public Page<Employee> getEmployeeByskills(@PathVariable String employeeSkills)
     {
 
-        return employeeRepository.findBySkills(employeeSkills , new PageRequest(0,5));
+        if(employeeSkills.equals("ADVANCED") || employeeSkills.equals("BEGINNER") || employeeSkills.equals("INTERMEDIATE"))
+        {
+            return employeeRepository.findBySkillsEndingWith(employeeSkills , new PageRequest(0,5));
+        }
+        else
+            return employeeRepository.findBySkillsStartingWith(employeeSkills , new PageRequest(0,5));
     }
 
     @GetMapping("/remove")

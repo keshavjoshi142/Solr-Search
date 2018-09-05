@@ -13,6 +13,8 @@ public interface EmployeeRepository extends SolrCrudRepository<Employee , String
 
     Page<Employee> findByFirstName(@Boost() String name , Pageable pageable);
 
-    Page<Employee> findBySkills(@Boost() String skills , Pageable pageable);
+    Page<Employee> findBySkillsStartingWith(@Boost() String skills , Pageable pageable);
+
+    Page<Employee> findBySkillsEndingWith(@Boost() String skills , Pageable pageable);
 
 }
