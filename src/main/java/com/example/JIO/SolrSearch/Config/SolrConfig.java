@@ -20,7 +20,7 @@ public class SolrConfig {
     @Bean
     public SolrClient solrClient()
     {
-        return new HttpSolrClient("http://localhost:8984/solr");
+        return new HttpSolrClient("http://localhost:8985/solr");
     }
 
     @Bean

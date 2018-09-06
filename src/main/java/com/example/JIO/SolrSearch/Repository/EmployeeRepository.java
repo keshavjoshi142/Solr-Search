@@ -17,4 +17,6 @@ public interface EmployeeRepository extends SolrCrudRepository<Employee , String
 
     Page<Employee> findBySkillsEndingWith(@Boost() String skills , Pageable pageable);
 
+    Page<Employee> findByFlattenedSkills(@Boost() String skills , Pageable pageable);
+
 }

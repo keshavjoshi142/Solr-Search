@@ -2,6 +2,7 @@ package com.example.JIO.SolrSearch.Rest;
 
 
 import com.example.JIO.SolrSearch.Modals.Employee;
+import com.example.JIO.SolrSearch.Modals.Skills;
 import com.example.JIO.SolrSearch.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,15 +31,16 @@ public class EmployeeRestController {
     public void loadData()
     {
         Employees = new ArrayList<>();
-        List<String> skill_set1 = new ArrayList<>();
-        skill_set1.add("Java_ADVANCED");
-        skill_set1.add("Cpp_ADVANCED");
+        List<Skills> skill_set1 = new ArrayList<>();
+        skill_set1.add(Skills.builder().skill_name("Java").skill_level("ADVANCED").build());
+        skill_set1.add(Skills.builder().skill_name("Cpp").skill_level("BEGINNER").build());
         Employee e = Employee.builder().firstName("keshav").lastName("joshi").empId("111").emailId("keshav@gmail.com").skills(skill_set1).build();
+        e.setFlattenedSkills(skill_set1);
         Employees.add(e);
 
-        List<String> skill_set2 = new ArrayList<>();
-        skill_set2.add("Java_ADVANCED");
-        skill_set2.add("C_ADVANCED");
+        List<Skills> skill_set2 = new ArrayList<>();
+        skill_set2.add(Skills.builder().skill_name("Java").skill_level("INTERMEDIATE").build());
+        skill_set2.add(Skills.builder().skill_name("ElasticSearch").skill_level("BEGINNER").build());
         Employee e1 = Employee.builder().firstName("rishikesh").lastName("mohanty").empId("222").emailId("abc@gmail.com").skills(skill_set2).build();
         Employees.add(e1);
 
@@ -61,12 +63,16 @@ public class EmployeeRestController {
     public Page<Employee> getEmployeeByskills(@PathVariable String employeeSkills)
     {
 
-        if(employeeSkills.equals("ADVANCED") || employeeSkills.equals("BEGINNER") || employeeSkills.equals("INTERMEDIATE"))
+        /*if(employeeSkills.equals("ADVANCED") || employeeSkills.equals("BEGINNER") || employeeSkills.equals("INTERMEDIATE"))
         {
             return employeeRepository.findBySkillsEndingWith(employeeSkills , new PageRequest(0,5));
         }
         else
-            return employeeRepository.findBySkillsStartingWith(employeeSkills , new PageRequest(0,5));
+            return employeeRepository.findBySkillsStartingWith(employeeSkills , new PageRequest(0,5));*/
+
+
+        return employeeRepository.findByFlattenedSkills(employeeSkills , new PageRequest(0 , 5));
+
     }
 
     @GetMapping("/remove")

@@ -42,8 +42,23 @@ public class Employee {
     @Indexed(name = "office_city" , type = "string")
     private String officeCity;                    //optional
 
+
+    private List<Skills> skills;                  //required
+
     @Indexed
-    private List<String> skills;                  //required
+    private String flattenedSkills;
+
+    public void setFlattenedSkills(List<Skills> skills)
+    {
+        StringBuffer flattenedSkills = new StringBuffer();
+
+        for(Skills s : skills)
+        {
+            flattenedSkills.append(s.getSkill_name()+" "+s.getSkill_level()).append(" ");
+        }
+
+        this.flattenedSkills = flattenedSkills.toString();
+    }
 
 
 
