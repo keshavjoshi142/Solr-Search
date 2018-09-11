@@ -1,6 +1,8 @@
 package com.example.JIO.SolrSearch.Config;
 
 
+import com.example.JIO.SolrSearch.Service.EmployeeRestService;
+import com.example.JIO.SolrSearch.Service.EmployeeRestServiceImpl;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.springframework.context.annotation.Bean;
@@ -24,5 +26,11 @@ public class SolrConfig {
     @Bean
     public SolrTemplate solrTemplate(SolrClient client) throws Exception {
         return new SolrTemplate(client);
+    }
+
+    @Bean
+    public EmployeeRestService employeeRestService()
+    {
+        return new EmployeeRestServiceImpl();
     }
 }
