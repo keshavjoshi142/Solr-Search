@@ -19,13 +19,18 @@ public class EmployeeRestServiceImpl implements EmployeeRestService{
     {
         final Optional<Employee> retrievedEmployee = employeeRepository.findById(employee.getId());
 
+
         if(retrievedEmployee.isPresent())
         {
+            employeeRepository.delete(retrievedEmployee.get());
+
             retrievedEmployee.get().setFirstName(employee.getFirstName());
             retrievedEmployee.get().setLastName(employee.getLastName());
             retrievedEmployee.get().setEmailId(employee.getEmailId());
             retrievedEmployee.get().setOfficeCirlce(employee.getOfficeCirlce());
             retrievedEmployee.get().setOfficeCity(employee.getOfficeCity());
+            retrievedEmployee.get().setSkills(employee.getSkills());
+            retrievedEmployee.get().setSuggestion(null);
 
             employeeRepository.save(retrievedEmployee.get());
 
