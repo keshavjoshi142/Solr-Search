@@ -1,10 +1,7 @@
-package com.example.JIO.SolrSearch.Modals;
+package com.example.JIO.SolrSearch.Models;
 
 
-import lombok.Builder;
 import lombok.Data;
-import lombok.NonNull;
-import org.apache.zookeeper.proto.ErrorResponse;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.solr.core.mapping.Indexed;
 import org.springframework.data.solr.core.mapping.SolrDocument;
@@ -82,6 +79,7 @@ public class Employee {
         private List<Skills> skills;
         private String flattenedSkills;
         private List<String> skillsString;
+        private  List<String> suggestion;
 
         public MyBuilder id(String id)
         {
@@ -122,6 +120,16 @@ public class Employee {
         {
             this.skills = skills;
             return  this;
+        }
+
+        public MyBuilder suggestion()
+        {
+            suggestion = new ArrayList<>();
+            this.suggestion.add("ADVANCED");
+            this.suggestion.add("BEGINNER");
+            this.suggestion.add("INTERMEDIATE");
+
+            return this;
         }
 
         public void setFlattenedSkills(List<Skills> skills)

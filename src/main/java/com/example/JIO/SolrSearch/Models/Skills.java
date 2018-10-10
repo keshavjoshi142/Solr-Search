@@ -1,9 +1,8 @@
-package com.example.JIO.SolrSearch.Modals;
+package com.example.JIO.SolrSearch.Models;
 
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.solr.core.mapping.SolrDocument;
 
 
 @Data

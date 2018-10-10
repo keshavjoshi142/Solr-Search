@@ -19,6 +19,15 @@ group = 'com.example.JIO'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
+/*
+task war(type : War)
+		{
+			from files(sourceSets.main.java.outputDir)
+			from
+		}
+*/
+
+
 repositories {
 	mavenCentral()
 }
@@ -28,9 +37,15 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-data-solr')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	// https://mvnrepository.com/artifact/org.projectlombok/lombok
-	compileOnly('org.projectlombok:lombok')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.projectlombok:lombok')
+	compile('mysql:mysql-connector-java')
 
+
+
+
+	testCompile('org.projectlombok:lombok')
 	runtime('org.springframework.boot:spring-boot-devtools')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

@@ -1,6 +1,6 @@
 package com.example.JIO.SolrSearch.Repository;
 
-import com.example.JIO.SolrSearch.Modals.Employee;
+import com.example.JIO.SolrSearch.Models.Employee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.solr.repository.Boost;

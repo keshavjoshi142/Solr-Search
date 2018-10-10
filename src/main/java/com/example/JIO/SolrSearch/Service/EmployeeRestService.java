@@ -1,6 +1,6 @@
 package com.example.JIO.SolrSearch.Service;
 
-import com.example.JIO.SolrSearch.Modals.Employee;
+import com.example.JIO.SolrSearch.Models.Employee;
 
 public interface EmployeeRestService {
 
