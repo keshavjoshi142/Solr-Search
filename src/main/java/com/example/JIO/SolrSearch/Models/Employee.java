@@ -17,29 +17,53 @@ public class Employee {
 
 
     @Id
-    @Indexed(name = "id" , type = "string")
-    private String id;                       //required
+    @Indexed(name = "id" , type = "Long")
+    private Long id;
 
-    @Indexed(name = "firstName" , type = "string")
-    private String firstName;                   //required
+    @Indexed(name = "name" , type = "string")
+    private String name;
 
-    @Indexed(name = "lastName" , type = "string")
-    private String lastName;                     //required
+    @Indexed(name = "userName" , type = "string")
+    private String userName;
 
     @Indexed(name = "emailId" , type = "string")
-    private String emailId;                       //required
+    private String emailId;
 
     @Indexed(name = "phoneNo" , type = "string")
-    private long phoneNo;                          //optional
+    private String phoneNo;
 
-    @Indexed(name = "officeCircle" , type = "string")
-    private String officeCirlce;                   //optional
+    @Indexed
+    private List<String> skills;
 
-    @Indexed(name = "officeCity" , type = "string")
-    private String officeCity;                    //optional
+    @Indexed
+    private List<String> instName;
 
+    @Indexed
+    private List<String> degree;
 
-    private List<Skills> skills;                  //required
+    @Indexed
+    private List<String> eduFrom;
+
+    @Indexed
+    private List<String> eduTo;
+
+    @Indexed
+    private List<String> projectName;
+
+    @Indexed
+    private List<String> projFrom;
+
+    @Indexed
+    private List<String> projTo;
+
+    @Indexed
+    private List<String> description;
+
+    @Indexed(name = "image" , type = "string")
+    private String image;
+
+    @Indexed(name = "weight" , type = "Long")
+    private Long weight;
 
     @Indexed
     private String flattenedSkills;
@@ -47,21 +71,30 @@ public class Employee {
     @Indexed
     private List<String> suggestion;
 
+
+
     @Indexed
-    List<String> skillsString;
+    private List<String> SkillsSet;
 
     private Employee(MyBuilder myBuilder)
     {
-        this.firstName = myBuilder.firstName;
-        this.lastName = myBuilder.lastName;
-        this.emailId = myBuilder.emailId;
         this.id = myBuilder.id;
+        this.name = myBuilder.name;
+        this.userName = myBuilder.userName;
+        this.emailId = myBuilder.emailId;
         this.phoneNo = myBuilder.phoneNo;
-        this.officeCirlce = myBuilder.officeCirle;
-        this.officeCity = myBuilder.officeCity;
         this.skills = myBuilder.skills;
+        this.instName = myBuilder.instName;
+        this.degree = myBuilder.degree;
+        this.eduFrom = myBuilder.eduFrom;
+        this.eduTo = myBuilder.eduTo;
+        this.projectName = myBuilder.projectName;
+        this.projFrom = myBuilder.projFrom;
+        this.projTo = myBuilder.projTo;
+        this.description = myBuilder.description;
+        this.image = myBuilder.image;
         this.flattenedSkills = myBuilder.flattenedSkills;
-        this.skillsString = myBuilder.skillsString;
+        this.weight = myBuilder.weight;
 
     }
 
@@ -69,32 +102,39 @@ public class Employee {
 
     public static class MyBuilder{
 
-        private String id;
-        private String firstName;
-        private String lastName;
+        private Long id;
+        private String name;
+        private String userName;
         private String emailId;
-        private long phoneNo;
-        private String officeCirle;
-        private String officeCity;
-        private List<Skills> skills;
+        private String phoneNo;
+        private List<String> skills;
+        private List<String> instName;
+        private List<String> degree;
+        private List<String> eduFrom;
+        private List<String> eduTo;
+        private List<String> projectName;
+        private List<String> projFrom;
+        private List<String> projTo;
+        private List<String> description;
+        private String image;
+        private Long weight;
         private String flattenedSkills;
-        private List<String> skillsString;
         private  List<String> suggestion;
 
-        public MyBuilder id(String id)
+        public MyBuilder id(Long id)
         {
             this.id = id;
             return this;
         }
-        public MyBuilder firstName(String firstName)
+        public MyBuilder name(String name)
         {
-            this.firstName = firstName;
+            this.name = name;
             return this;
         }
 
-        public MyBuilder lastName(String lastName)
+        public MyBuilder userName(String userName)
         {
-            this.lastName = lastName;
+            this.userName = userName;
             return this;
         }
         public MyBuilder emailId(String emailId)
@@ -104,22 +144,76 @@ public class Employee {
             return this;
         }
 
-        public  MyBuilder phoneNo(long phoneNo)
+        public  MyBuilder phoneNo(String phoneNo)
         {
             this.phoneNo = phoneNo;
             return this;
         }
 
-        public MyBuilder getOfficeCirle(String officeCirle)
-        {
-            this.officeCirle = officeCirle;
-            return this;
-        }
 
-        public MyBuilder skills(List<Skills> skills)
+        public MyBuilder skills(List<String> skills)
         {
             this.skills = skills;
             return  this;
+        }
+
+        public MyBuilder instName(List<String> instName)
+        {
+            this.instName = instName;
+            return  this;
+        }
+
+        public MyBuilder degree(List<String> degree)
+        {
+            this.degree = degree;
+            return  this;
+        }
+
+        public MyBuilder eduFrom(List<String> eduFrom)
+        {
+            this.eduFrom = eduFrom;
+            return  this;
+        }
+
+        public MyBuilder eduTo(List<String> eduTo)
+        {
+            this.eduTo = eduTo;
+            return  this;
+        }
+
+        public MyBuilder projectName(List<String> projectName)
+        {
+            this.projectName = projectName;
+            return  this;
+        }
+
+        public MyBuilder projFrom(List<String> projFrom)
+        {
+            this.projFrom = projFrom;
+            return  this;
+        }
+
+        public MyBuilder projTo(List<String> projTo)
+        {
+            this.projTo = projTo;
+            return  this;
+        }
+
+        public MyBuilder description(List<String> description)
+        {
+            this.description = description;
+            return  this;
+        }
+
+        public MyBuilder image(String image)
+        {
+            this.image = image;
+            return  this;
+        }
+
+        public MyBuilder weight(Long weight) {
+            this.weight = weight;
+            return this;
         }
 
         public MyBuilder suggestion()
@@ -145,7 +239,7 @@ public class Employee {
         }
 
         // process method can only be apply after skills(List<Skills> skills) method
-        public MyBuilder process()
+      /*  public MyBuilder process()
         {
             setFlattenedSkills(this.skills);
             skillsString = new ArrayList<>();
@@ -156,7 +250,7 @@ public class Employee {
             }
 
             return this;
-        }
+        }*/
 
         //use build after process()
         public Employee mybuild()
