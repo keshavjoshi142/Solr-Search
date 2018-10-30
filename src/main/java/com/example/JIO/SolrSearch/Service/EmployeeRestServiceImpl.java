@@ -1,9 +1,9 @@
 package com.example.JIO.SolrSearch.Service;
 
-import com.example.JIO.SolrSearch.Models.Education;
-import com.example.JIO.SolrSearch.Models.Employee;
-import com.example.JIO.SolrSearch.Models.EmployeeDTO;
-import com.example.JIO.SolrSearch.Models.Projects;
+import com.example.JIO.SolrSearch.Models.Employee.Education;
+import com.example.JIO.SolrSearch.Models.Employee.Employee;
+import com.example.JIO.SolrSearch.Models.Employee.EmployeeResquest;
+import com.example.JIO.SolrSearch.Models.Employee.Projects;
 import com.example.JIO.SolrSearch.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.JIO.SolrSearch.Models.User;
@@ -57,7 +57,7 @@ public class EmployeeRestServiceImpl implements EmployeeRestService{
     }
 
 
-    public boolean save(EmployeeDTO employeeDTO) {
+    public boolean save(EmployeeResquest employeeResquest) {
 
             List<String> instName = new ArrayList<String>();
             List<String> degree = new ArrayList<String>();
@@ -69,8 +69,8 @@ public class EmployeeRestServiceImpl implements EmployeeRestService{
             List<String> projTo = new ArrayList<String>();
             List<String> description = new ArrayList<String>();
 
-            List<Education> educationList = employeeDTO.getEducation();
-            List<Projects> projectsList = employeeDTO.getProjects();
+            List<Education> educationList = employeeResquest.getEducation();
+            List<Projects> projectsList = employeeResquest.getProjects();
 
             for(Education education : educationList) {
                 instName.add(education.getInstName());
@@ -86,15 +86,15 @@ public class EmployeeRestServiceImpl implements EmployeeRestService{
                 description.add(projects.getDescription());
             }
 
-            Employee newEmployee = new Employee.MyBuilder().id(randomLongGenerator.getRandomLong()).name(employeeDTO.getName()).userName(employeeDTO.getUserName()).emailId(employeeDTO.getEmailId()).
-                                        phoneNo(employeeDTO.getPhoneNo()).skills(employeeDTO.getSkills()).instName(instName).degree(degree).eduFrom(eduFrom).eduTo(eduTo).
-                                        projectName(projectName).projFrom(projFrom).projTo(projTo).description(description).image(employeeDTO.getImage()).weight(Long.valueOf(0)).mybuild();
+            Employee newEmployee = new Employee.MyBuilder().id(randomLongGenerator.getRandomLong()).name(employeeResquest.getName()).userName(employeeResquest.getUserName()).emailId(employeeResquest.getEmailId()).
+                                        phoneNo(employeeResquest.getPhoneNo()).skills(employeeResquest.getSkills()).instName(instName).degree(degree).eduFrom(eduFrom).eduTo(eduTo).
+                                        projectName(projectName).projFrom(projFrom).projTo(projTo).description(description).image(employeeResquest.getImage()).weight(Long.valueOf(0)).mybuild();
 
-            User user = User.builder().id(newEmployee.getId()).username(employeeDTO.getUserName()).password(employeeDTO.getPassword()).build();
+            User user = User.builder().id(newEmployee.getId()).username(employeeResquest.getUserName()).password(employeeResquest.getPassword()).build();
 
             userService.saveUser(user);
 
-            employeeDTO = null;
+            employeeResquest = null;
             employeeRepository.save(newEmployee);
 
             return true;

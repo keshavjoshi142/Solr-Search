@@ -1,4 +1,4 @@
-package com.example.JIO.SolrSearch.Models;
+package com.example.JIO.SolrSearch.Models.Employee;
 
 
 import lombok.Builder;

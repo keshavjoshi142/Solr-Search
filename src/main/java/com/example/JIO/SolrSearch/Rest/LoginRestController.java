@@ -13,12 +13,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.DispatcherServlet;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 
@@ -41,57 +40,62 @@ public class LoginRestController {
 
     private User user;
 
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-/*    @PostConstruct
-*//*   public void loadData() {
-       user = User.builder().id(new Long(1)).username("1").password("1").build();
-
-       List<User> userList = new ArrayList<>();
-
-       userList.add(user);
-
-       userService.saveUser(user);
-
-   }*/
 
 
    @RequestMapping(value = "/login/data" ,consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
    public ResponseEntity<?> authicateUser(@RequestBody User user)
    {
+       if(Objects.isNull(user)) {
+
+            logger.log(Level.WARNING , "Empty Credentials");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+       }
+
        Optional<User> new_user = userService.findByUsername(user.getUsername());
 
-       if(new_user.isPresent() && bCryptPasswordEncoder.matches(user.getPassword() , new_user.get().getPassword()))
-       {
-           System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkk");
-           String jwt = jwtTokenProvider.generateToken(new_user.get().getId());
-           return ResponseEntity.ok(new JwtAuthenticationResponse(jwt , user.getUsername()));
-       }
-       else
+       if(new_user.isPresent()) {
+
+           if(bCryptPasswordEncoder.matches(user.getPassword() , new_user.get().getPassword())) {
+
+               String jwt = jwtTokenProvider.generateToken(new_user.get().getId());
+               logger.log(Level.INFO , "Successfully LoggedIn");
+               return ResponseEntity.ok(new JwtAuthenticationResponse(jwt , user.getUsername()));
+
+           } else {
+
+               logger.log(Level.WARNING , "Incorrect Password");
+               return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+           }
+       } else {
+           logger.log(Level.WARNING , "Incorrect Username");
            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+       }
+
    }
 
     @GetMapping("/check/{userName}")
     public ResponseEntity<?> checkUserName(@PathVariable String userName) {
 
+       if(Objects.isNull(userName)) {
+
+           logger.log(Level.WARNING , "Empty Username");
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+       }
+
        Optional<User> user = userService.findByUsername(userName);
 
        if(user.isPresent()) {
+
+           logger.log(Level.INFO, "Username is already taken");
            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
        }else {
            return ResponseEntity.status(HttpStatus.CREATED).build();
        }
    }
-
-    @RequestMapping("/registration")
-    public User registerEmp()
-    {
-        User user = User.builder().id(new Long(2)).username("keshav").password(bCryptPasswordEncoder.encode("azsxdc")).build();
-
-        userRepository.save(user);
-
-        return user;
-    }
-
-
 
 }

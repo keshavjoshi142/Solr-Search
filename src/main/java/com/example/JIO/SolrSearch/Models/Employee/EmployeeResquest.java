@@ -1,4 +1,4 @@
-package com.example.JIO.SolrSearch.Models;
+package com.example.JIO.SolrSearch.Models.Employee;
 
 
 import lombok.Builder;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class EmployeeDTO {
+public class EmployeeResquest {
 
     private String name;
     private String userName;

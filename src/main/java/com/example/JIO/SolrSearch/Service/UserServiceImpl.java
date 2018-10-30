@@ -3,7 +3,6 @@ package com.example.JIO.SolrSearch.Service;
 
 import com.example.JIO.SolrSearch.Models.Role;
 import com.example.JIO.SolrSearch.Models.User;
-import com.example.JIO.SolrSearch.Repository.RoleRepository;
 import com.example.JIO.SolrSearch.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,9 +19,6 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
@@ -31,10 +27,6 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user){
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-
-        Role userRole = roleRepository.findByRole("ADMIN");
-
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 
         userRepository.save(user);
 

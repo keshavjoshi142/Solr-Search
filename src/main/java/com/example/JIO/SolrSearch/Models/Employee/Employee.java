@@ -1,6 +1,7 @@
-package com.example.JIO.SolrSearch.Models;
+package com.example.JIO.SolrSearch.Models.Employee;
 
 
+import com.example.JIO.SolrSearch.Models.Skills;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.solr.core.mapping.Indexed;
