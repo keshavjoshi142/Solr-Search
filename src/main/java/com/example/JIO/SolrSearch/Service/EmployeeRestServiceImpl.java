@@ -90,7 +90,10 @@ public class EmployeeRestServiceImpl implements EmployeeRestService{
                                         phoneNo(employeeResquest.getPhoneNo()).skills(employeeResquest.getSkills()).instName(instName).degree(degree).eduFrom(eduFrom).eduTo(eduTo).
                                         projectName(projectName).projFrom(projFrom).projTo(projTo).description(description).image(employeeResquest.getImage()).weight(Long.valueOf(0)).mybuild();
 
-            User user = User.builder().id(newEmployee.getId()).username(employeeResquest.getUserName()).password(employeeResquest.getPassword()).build();
+            User user = new User();
+            user.setId(newEmployee.getId());
+            user.setUsername(employeeResquest.getUserName());
+            user.setPassword(employeeResquest.getPassword());
 
             userService.saveUser(user);
 

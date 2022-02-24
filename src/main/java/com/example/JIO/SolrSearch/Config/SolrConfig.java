@@ -7,6 +7,7 @@ import com.example.JIO.SolrSearch.Service.EmployeeRestServiceImpl;
 //import com.example.JIO.SolrSearch.Service.UserServiceImpl;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.impl.XMLResponseParser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +25,9 @@ public class SolrConfig {
 
     @Bean
     public SolrClient solrClient() {
-        return new HttpSolrClient("http://localhost:8985/solr");
+        HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr/").build();
+        client.setParser(new XMLResponseParser());
+        return client;
     }
 
     @Bean

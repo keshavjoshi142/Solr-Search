@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Data
-@SolrDocument(solrCoreName = "Employee_data")
+@SolrDocument(collection = "Employee_data")
 
 public class Employee {
 

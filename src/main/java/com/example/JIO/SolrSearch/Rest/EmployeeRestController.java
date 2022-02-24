@@ -191,11 +191,10 @@ public class EmployeeRestController {
     @GetMapping("autocomplete/{word}")
     public List<String> SkillsSuggester(@PathVariable String word) throws Exception {
         SolrQuery query = new SolrQuery();
-        query.setRequestHandler("/Employee_data/suggest");
+        query.setRequestHandler("Employee_data/suggest");
         query.set("suggest", "true");
         query.set("suggest.build", "true");
         query.set("suggest.dictionary", "mySuggester");
-
 
         query.set("suggest.q", word);
         QueryResponse response = solrClient.query(query);
